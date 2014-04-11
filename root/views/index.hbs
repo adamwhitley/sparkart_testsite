@@ -2,7 +2,25 @@
 {
 	"title": "Index",
 	"name": "index"
+
+"resources": {
+    "facebook": {
+        "url": "http://proxy.storyteller.io/facebook/35718435694/albums",
+        "headers": {
+            "Api-Key": "5f60a553-674e-4d92-8623-7ec6bf4e2518",
+            "Project": "sparkart_site"
+        }
+    }
+    "kitties": {
+            "count": 3,
+            "results": ["Wesley", "Twizzler", "Pixel"]
+        }
+}
 }
 }}
 
-<h1><code>\o/</code></h1>
+<h1><code>Test Site</code></h1>
+<script>{{{context}}}</script>
+<script>
+    alert( 'Here are the kitties!', solidus.context.resources.kitties.results );
+</script>
