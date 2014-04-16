@@ -1,7 +1,7 @@
 {{!
 {
 	"title": "Index",
-	"name": "index"
+	"name": "index",
 
 "resources": {
     "facebook": {
@@ -11,16 +11,33 @@
             "Project": "sparkart_site"
         }
     }
-    "kitties": {
-            "count": 3,
-            "results": ["Wesley", "Twizzler", "Pixel"]
-        }
 }
 }
 }}
 
-<h1><code>Test Site</code></h1>
-<script>{{{context}}}</script>
+        <script>{{{context}}}</script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" ></script>
 <script>
-    alert( 'Here are the kitties!', solidus.context.resources.kitties.results );
+    $(document).ready( function() {
+        var ul = document.getElementById('albums');
+        for (var i=0, l=solidus.context.resources.facebook.data.length; i<l; i++) {
+            
+                      var album = solidus.context.resources.facebook.data[i];
+                        if (album.name == "Profile Pictures" && album.id != "487382395694") {
+                            return true;
+                        }
+                        else {
+                        var li = document.createElement('li'),
+                        a = document.createElement('a');
+                        a.className = 'thickbox';
+                        a.setAttribute('title',album.name);
+                      a.innerHTML = '<div id="albumbox"><img src="http://graph.facebook.com/' + album.cover_photo + '/picture" border="0" alt="' + album.name + '" /></div><div class="albumname">' + album.name + '</div>';
+                      a.href = album.id +'.hbs';
+                      li.appendChild(a);
+                      ul.appendChild(li);
+                  }
+                    }
+
+    });
 </script>
+    <ul id="albums"></ul>
