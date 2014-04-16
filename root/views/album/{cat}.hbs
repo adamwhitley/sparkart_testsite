@@ -1,0 +1,41 @@
+{{!
+{
+	"title": "Album",
+	"name": "Album"
+}
+}}
+
+        <script>{{{context}}}</script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" ></script>
+<script>
+    $(document).ready( function() {
+        var ul = document.getElementById('albums'), 
+            graph = 'https://graph.facebook.com/' + solidus.context.parameters.cat + '/photos?date_format=U';        
+        $.getJSON(graph, function(data) {
+            for(var key in data){
+                for(var key2 in data[key]){
+                  photo=data[key][key2];
+                  var li = document.createElement('li'),
+                      a = document.createElement('a'), 
+                      ct = photo.created_time, 
+                      addedDate = new Date(ct * 1000), 
+                      title = "";
+                  if(typeof(photo.name) != 'undefined'){
+                        title = photo.name;
+                    }
+                    if(typeof(photo.source) != 'undefined'){
+                        var date = addedDate.getDate();
+                        var month = addedDate.getMonth();
+                        var year = addedDate.getFullYear();
+                        a.innerHTML = '<div id="albumbox"><img src="' + photo.source + '" border="0" alt="' + title + '" title="' + title + '" /></div><div class="albumname">' + date + '/' + month + '/' + year + '</div>';
+                        a.href = 'photo/' + photo.id;
+                        li.appendChild(a);
+                        ul.appendChild(li);
+                    }
+                }
+            }
+        });   
+
+    });
+</script>
+    <ul id="albums"></ul>
